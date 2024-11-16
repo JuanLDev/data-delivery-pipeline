@@ -1,9 +1,9 @@
 variable "lambda_role_arn" {
-  description = "The ARN of the IAM role for the Lambda function"
+  description = "The ARN of the Lambda execution role"
 }
 
 variable "lambda_policy_attachment_id" {
-  description = "The ID of the IAM policy attachment"
+  description = "The ID of the policy attachment"
 }
 
 variable "lambda_zip_file" {
@@ -11,9 +11,9 @@ variable "lambda_zip_file" {
 }
 
 variable "raw_bucket" {
-  description = "The name of the raw S3 bucket"
+  description = "Name of the raw S3 bucket"
 }
 
 variable "cleaned_bucket" {
-  description = "The name of the cleaned S3 bucket"
+  description = "Name of the cleaned S3 bucket"
 }

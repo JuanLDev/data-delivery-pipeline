@@ -1,9 +1,9 @@
-variable "raw_bucket_name" {
+variable "raw_bucket" {
   description = "Name of the raw S3 bucket"
   type        = string
 }
 
-variable "cleaned_bucket_name" {
+variable "cleaned_bucket" {
   description = "Name of the cleaned S3 bucket"
   type        = string
 }

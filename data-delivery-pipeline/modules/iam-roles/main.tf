@@ -1,3 +1,4 @@
+# Define the IAM Role for Lambda Function
 resource "aws_iam_role" "lambda_exec_role" {
   name = "lambda_exec_role"
   assume_role_policy = jsonencode({
@@ -13,7 +14,6 @@ resource "aws_iam_role" "lambda_exec_role" {
     ]
   })
 }
-
 resource "aws_iam_policy" "lambda_policy" {
   name   = "lambda_policy"
   policy = jsonencode({
@@ -23,14 +23,14 @@ resource "aws_iam_policy" "lambda_policy" {
         Effect = "Allow",
         Action = ["s3:GetObject", "s3:PutObject"],
         Resource = [
-          "arn:aws:s3:::${var.raw_bucket_name}/*",
-          "arn:aws:s3:::${var.cleaned_bucket_name}/*"
+          "arn:aws:s3:::${var.raw_bucket}/*",
+          "arn:aws:s3:::${var.cleaned_bucket}/*"
         ]
       },
       {
         Effect = "Allow",
         Action = ["lambda:GetLayerVersion", "lambda:ListLayerVersions"],
-        Resource = "arn:aws:lambda:us-west-2:336392948345:layer:AWSDataWrangler-Python38:1"
+        Resource = "*"
       },
       {
         Effect = "Allow",
@@ -41,7 +41,30 @@ resource "aws_iam_policy" "lambda_policy" {
   })
 }
 
+
+# Attach the Policy to the IAM Role
 resource "aws_iam_role_policy_attachment" "lambda_attach_policy" {
   role       = aws_iam_role.lambda_exec_role.name
   policy_arn = aws_iam_policy.lambda_policy.arn
+}
+
+# Grant the `popeye` user access to the Lambda Layer
+resource "aws_iam_user_policy" "popeye_layer_access" {
+  name = "popeye_layer_access"
+  user = "popeye"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = ["lambda:GetLayerVersion", "lambda:ListLayerVersions"],
+        Resource = [
+          "arn:aws:lambda:us-west-2:336392948345:layer:AWSDataWrangler-Python311:*",
+          "arn:aws:lambda:us-west-2:277707129094:layer:numpy-layer:*",
+          "arn:aws:lambda:us-west-2:336392948345:layer:*" # Added broader access
+        ]
+      }
+    ]
+  })
 }
