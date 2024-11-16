@@ -1,4 +1,4 @@
-# .github/workflows/deploy.yml
+---
 name: Terraform Deploy
 
 on:
@@ -24,8 +24,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-        with:
-          cli_config_credentials_token: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Init
         run: terraform init
