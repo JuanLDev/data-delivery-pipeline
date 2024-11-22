@@ -3,22 +3,22 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.8  # Specify the runtime
+      python: 3.8
     commands:
       - echo "Installing Terraform..."
       - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
-      - rm -rf terraform  # Remove any existing terraform directory or file
-      - unzip terraform.zip
+      - unzip -o terraform.zip
       - mv terraform /usr/bin/
       - terraform --version
       - echo "Terraform installed."
+      - echo "Listing current directory structure:"
+      - ls -R
 
   pre_build:
     commands:
       - echo "Initializing Terraform..."
-      - cd terraform
+      - cd data-delivery-pipeline/terraform  # Adjust this path as needed
       - terraform init
-      - echo "Terraform initialized."
 
   build:
     commands:
@@ -29,4 +29,4 @@ phases:
 
 artifacts:
   files:
-    - terraform/*.tf  # Specify any files you want to archive or store as artifacts
+    - terraform/*.tf
