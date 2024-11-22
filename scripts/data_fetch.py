@@ -4,7 +4,8 @@ import os
 import json
 import time
 
-CONFIG_PATH = 'config/alpha_vantage_config.json'
+CONFIG_PATH = "config/alpha_vantage_config.json"
+
 
 
 def load_config():
