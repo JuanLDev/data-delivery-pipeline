@@ -6,11 +6,8 @@ phases:
       python: 3.8
     commands:
       - echo "Installing Terraform..."
-      # Remove old Terraform binary safely
       - rm -f /usr/bin/terraform
-      # Ensure that a directory named "terraform" doesn't interfere
       - [ -d terraform ] && rm -rf terraform || echo "No conflicting directory"
-      # Download and unzip the Terraform binary
       - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
       - unzip terraform.zip
       - mv terraform /usr/bin/
