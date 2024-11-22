@@ -7,7 +7,6 @@ phases:
     commands:
       - echo "Installing Terraform..."
       - rm -f /usr/bin/terraform
-      - if [ -d terraform ]; then rm -rf terraform; else echo "No conflicting directory"; fi
       - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
       - unzip -o terraform.zip
       - mv terraform /usr/bin/
@@ -16,8 +15,12 @@ phases:
 
   pre_build:
     commands:
+      - echo "Verifying directory structure..."
+      - pwd  # Print current directory
+      - ls -al  # List files to understand the structure
+      - echo "Navigating to the terraform directory..."
+      - cd terraform || (echo "Terraform directory not found!" && exit 1)
       - echo "Initializing Terraform..."
-      - cd terraform
       - terraform init
 
   build:
