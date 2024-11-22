@@ -31,16 +31,16 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: terraform
+        working-directory: terraform/main.tr
       - name: Terraform Format Check
         run: terraform fmt -check
-        working-directory: terraform
+        working-directory: terraform/main.tr
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        working-directory: terraform
+        working-directory: terraform/main.tr
 
       - name: Terraform Apply
         if: github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
-        working-directory: terraform
+        working-directory: terraform/main.tr
