@@ -7,7 +7,8 @@ phases:
     commands:
       - echo "Installing Terraform..."
       - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
-      - unzip -o terraform.zip  # Add the -o flag to overwrite files without prompting
+      - rm -rf terraform  # Remove any existing terraform directory or file
+      - unzip terraform.zip
       - mv terraform /usr/bin/
       - terraform --version
       - echo "Terraform installed."
