@@ -17,7 +17,7 @@ phases:
   pre_build:
     commands:
       - echo "Initializing Terraform..."
-      - cd terraform
+      - cd data-delivery-pipeline/terraform
       - terraform init
 
   build:
